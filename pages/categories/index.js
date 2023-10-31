@@ -1,5 +1,6 @@
 import config from "@config/config.json";
 import Base from "@layouts/Baseof";
+import CustomLink from "@layouts/Link";
 import { getTaxonomy } from "@lib/taxonomyParser";
 import { humanize, markdownify } from "@lib/utils/textConverter";
 import Link from "next/link";
@@ -14,12 +15,13 @@ const Categories = ({ categories }) => {
           <ul className="space-x-4">
             {categories.map((category, i) => (
               <li key={`category-${i}`} className="inline-block">
-                <Link
+                <CustomLink
                   href={`/categories/${category}`}
                   className="rounded-lg bg-theme-light px-4 py-2 text-dark transition hover:bg-primary hover:text-white"
+                  prefetch={false}
                 >
                   &#8226; {humanize(category)}
-                </Link>
+                </CustomLink>
               </li>
             ))}
           </ul>

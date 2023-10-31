@@ -1,3 +1,4 @@
+import CustomLink from "@layouts/Link";
 import Link from "next/link";
 import React from "react";
 
@@ -20,13 +21,14 @@ const Pagination = ({ section, currentPage, totalPages }) => {
         >
           {/* previous */}
           {hasPrevPage ? (
-            <Link
+            <CustomLink
               href={
                 indexPageLink
                   ? `${section ? "/" + section : "/"}`
                   : `${section ? "/" + section : ""}/page/${currentPage - 1}`
               }
               className="rounded-lg border border-primary px-2 py-2 text-dark"
+              prefetch={false}
             >
               <>
                 <span className="sr-only">Previous</span>
@@ -44,7 +46,7 @@ const Pagination = ({ section, currentPage, totalPages }) => {
                   />
                 </svg>
               </>
-            </Link>
+            </CustomLink>
           ) : (
             <span className="rounded-lg border border-primary px-2 py-2 text-dark">
               <>
@@ -77,7 +79,7 @@ const Pagination = ({ section, currentPage, totalPages }) => {
                   {pagination}
                 </span>
               ) : (
-                <Link
+                <CustomLink
                   href={
                     i === 0
                       ? `${section ? "/" + section : "/"}`
@@ -86,18 +88,20 @@ const Pagination = ({ section, currentPage, totalPages }) => {
                   passHref
                   aria-current="page"
                   className={`rounded-lg border border-primary px-4 py-2 text-dark`}
+                  prefetch={false}
                 >
                   {pagination}
-                </Link>
+                </CustomLink>
               )}
             </React.Fragment>
           ))}
 
           {/* next page */}
           {hasNextPage ? (
-            <Link
+            <CustomLink
               href={`${section ? "/" + section : ""}/page/${currentPage + 1}`}
               className="rounded-lg border border-primary px-2 py-2 text-dark"
+              prefetch={false}
             >
               <>
                 <span className="sr-only">Next</span>
@@ -115,7 +119,7 @@ const Pagination = ({ section, currentPage, totalPages }) => {
                   />
                 </svg>
               </>
-            </Link>
+            </CustomLink>
           ) : (
             <span className="rounded-lg border border-primary px-2 py-2 text-dark">
               <>

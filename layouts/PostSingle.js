@@ -7,6 +7,7 @@ import shortcodes from "@shortcodes/all";
 import { MDXRemote } from "next-mdx-remote";
 import Image from "next/image";
 import Link from "next/link";
+import CustomLink from "./Link";
 
 const PostSingle = ({ post, posts, authors, slug }) => {
   const { frontmatter, content, mdxContent } = post;
@@ -20,7 +21,7 @@ const PostSingle = ({ post, posts, authors, slug }) => {
         <div className="container">
           <article className="text-center">
             {markdownify(title, "h1", "h2")}
-            <ul className="mt-4 mb-8 flex flex-wrap items-center justify-center space-x-3 text-text">
+            <ul className="mb-8 mt-4 flex flex-wrap items-center justify-center space-x-3 text-text">
               <li>
                 {authors
                   .filter((author) =>
@@ -29,10 +30,11 @@ const PostSingle = ({ post, posts, authors, slug }) => {
                       .includes(slugify(author.frontmatter.title))
                   )
                   .map((author, i) => (
-                    <Link
+                    <CustomLink
                       href={`/authors/${slugify(author.frontmatter.title)}`}
                       key={`author-${i}`}
                       className="flex items-center hover:text-primary"
+                      prefetch={false}
                     >
                       {author.frontmatter.image && (
                         <Image
@@ -44,7 +46,7 @@ const PostSingle = ({ post, posts, authors, slug }) => {
                         />
                       )}
                       <span>{author.frontmatter.title}</span>
-                    </Link>
+                    </CustomLink>
                   ))}
               </li>
               <li>{dateFormat(date)}</li>
@@ -52,12 +54,13 @@ const PostSingle = ({ post, posts, authors, slug }) => {
                 <ul>
                   {categories.map((category, i) => (
                     <li className="inline-block" key={`category-${i}`}>
-                      <Link
+                      <CustomLink
                         href={`/categories/${slugify(category)}`}
                         className="mr-3 hover:text-primary"
+                        prefetch={false}
                       >
                         &#9635; {humanize(category)}
-                      </Link>
+                      </CustomLink>
                     </li>
                   ))}
                 </ul>
@@ -76,15 +79,16 @@ const PostSingle = ({ post, posts, authors, slug }) => {
               <MDXRemote {...mdxContent} components={shortcodes} />
             </div>
             <div className="flex flex-wrap items-center justify-between">
-              <ul className="mr-4 mb-4 space-x-3">
+              <ul className="mb-4 mr-4 space-x-3">
                 {tags.map((tag, i) => (
                   <li className="inline-block" key={`tag-${i}`}>
-                    <Link
+                    <CustomLink
                       href={`/tags/${slugify(tag)}`}
                       className="block rounded-lg bg-theme-light px-4 py-2 font-semibold text-dark hover:text-primary"
+                      prefetch={false}
                     >
                       #{humanize(tag)}
-                    </Link>
+                    </CustomLink>
                   </li>
                 ))}
               </ul>

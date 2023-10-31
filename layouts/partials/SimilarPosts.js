@@ -1,3 +1,4 @@
+import CustomLink from "@layouts/Link";
 import dateFormat from "@lib/utils/dateFormat";
 import { humanize, slugify } from "@lib/utils/textConverter";
 import Image from "next/image";
@@ -25,21 +26,26 @@ const SimilarPosts = ({ posts }) => {
               <ul>
                 {post.frontmatter.categories?.map((category, i) => (
                   <li className="inline-block" key={`category-${i}`}>
-                    <Link
+                    <CustomLink
                       href={`/categories/${slugify(category)}`}
                       className="mr-3 hover:text-primary"
+                      prefetch={false}
                     >
                       &#9635; {humanize(category)}
-                    </Link>
+                    </CustomLink>
                   </li>
                 ))}
               </ul>
             </li>
           </ul>
           <h3 className="h4">
-            <Link href={`/${post.slug}`} className="block hover:text-primary">
+            <CustomLink
+              href={`/${post.slug}`}
+              className="block hover:text-primary"
+              prefetch={false}
+            >
               {post.frontmatter.title}
-            </Link>
+            </CustomLink>
           </h3>
         </div>
       ))}

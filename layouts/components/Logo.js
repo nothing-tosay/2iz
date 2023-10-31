@@ -1,4 +1,5 @@
 import config from "@config/config.json";
+import CustomLink from "@layouts/Link";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -7,7 +8,7 @@ const Logo = ({ src }) => {
   const { logo, logo_width, logo_height, logo_text, title } = config.site;
 
   return (
-    <Link href="/" className="navbar-brand block">
+    <CustomLink href="/" className="navbar-brand block" prefetch={false}>
       {src || logo ? (
         <Image
           width={logo_width.replace("px", "") * 2}
@@ -25,7 +26,7 @@ const Logo = ({ src }) => {
       ) : (
         title
       )}
-    </Link>
+    </CustomLink>
   );
 };
 

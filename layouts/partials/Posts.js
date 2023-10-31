@@ -1,4 +1,5 @@
 import config from "@config/config.json";
+import CustomLink from "@layouts/Link";
 import dateFormat from "@lib/utils/dateFormat";
 import { humanize, slugify } from "@lib/utils/textConverter";
 import Image from "next/image";
@@ -23,7 +24,7 @@ const Posts = ({ posts, authors, className }) => {
               priority={i === 0 ? true : false}
             />
           )}
-          <ul className="mt-4 mb-4 flex flex-wrap items-center space-x-3 text-text">
+          <ul className="mb-4 mt-4 flex flex-wrap items-center space-x-3 text-text">
             <li>
               {authors
                 .filter((author) =>
@@ -32,10 +33,11 @@ const Posts = ({ posts, authors, className }) => {
                     .includes(slugify(author.frontmatter.title))
                 )
                 .map((author, i) => (
-                  <Link
+                  <CustomLink
                     href={`/authors/${slugify(author.frontmatter.title)}`}
                     key={`author-${i}`}
                     className="flex items-center hover:text-primary"
+                    prefetch={false}
                   >
                     {author.frontmatter.image && (
                       <Image
@@ -47,7 +49,7 @@ const Posts = ({ posts, authors, className }) => {
                       />
                     )}
                     <span>{author.frontmatter.title}</span>
-                  </Link>
+                  </CustomLink>
                 ))}
             </li>
             <li>{dateFormat(post.frontmatter.date)}</li>
@@ -55,21 +57,26 @@ const Posts = ({ posts, authors, className }) => {
               <ul>
                 {post.frontmatter.categories.map((category, i) => (
                   <li className="inline-block" key={`category-${i}`}>
-                    <Link
+                    <CustomLink
                       href={`/categories/${slugify(category)}`}
                       className="mr-3 hover:text-primary"
+                      prefetch={false}
                     >
                       &#9635; {humanize(category)}
-                    </Link>
+                    </CustomLink>
                   </li>
                 ))}
               </ul>
             </li>
           </ul>
           <h3 className="mb-2">
-            <Link href={`/${post.slug}`} className="block hover:text-primary">
+            <CustomLink
+              href={`/${post.slug}`}
+              className="block hover:text-primary"
+              prefetch={false}
+            >
               {post.frontmatter.title}
-            </Link>
+            </CustomLink>
           </h3>
           <p className="text-text">
             {post.content && post.content.slice(0, Number(summary_length))}...

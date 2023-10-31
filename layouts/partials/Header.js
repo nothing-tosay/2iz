@@ -1,5 +1,6 @@
 import Logo from "@components/Logo";
 import menu from "@config/menu.json";
+import CustomLink from "@layouts/Link";
 import SearchModal from "@layouts/partials/SearchModal";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -80,21 +81,26 @@ const Header = () => {
                     <ul className="nav-dropdown-list hidden group-hover:block md:invisible md:absolute md:block md:opacity-0 md:group-hover:visible md:group-hover:opacity-100">
                       {menu.children.map((child, i) => (
                         <li className="nav-dropdown-item" key={`children-${i}`}>
-                          <Link
+                          <CustomLink
                             href={child.url}
                             className="nav-dropdown-link block"
+                            prefetch={false}
                           >
                             {child.name}
-                          </Link>
+                          </CustomLink>
                         </li>
                       ))}
                     </ul>
                   </li>
                 ) : (
                   <li className="nav-item">
-                    <Link href={menu.url} className="nav-link block">
+                    <CustomLink
+                      href={menu.url}
+                      className="nav-link block"
+                      prefetch={false}
+                    >
                       {menu.name}
-                    </Link>
+                    </CustomLink>
                   </li>
                 )}
               </React.Fragment>

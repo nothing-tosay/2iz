@@ -11,6 +11,7 @@ const App = ({ Component, pageProps }) => {
   const pf = theme.fonts.font_family.primary;
   const sf = theme.fonts.font_family.secondary;
   const [fontcss, setFontcss] = useState();
+
   useEffect(() => {
     fetch(
       `https://fonts.googleapis.com/css2?family=${pf}${
@@ -38,6 +39,7 @@ const App = ({ Component, pageProps }) => {
           rel="preconnect"
           href="https://fonts.gstatic.com"
           crossOrigin="true"
+          prefetch={false}
         />
         <style
           dangerouslySetInnerHTML={{
